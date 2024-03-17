@@ -51,6 +51,16 @@ detection_task <- subset(
     detection_task$target_location == detection_task$response, 
     1, 0
   )
+  
+# Line motion rating task
+line_task <- subset(
+  df,
+  df$task_requirement != "detection"
+)
 
-  
-  
+  # Recode line motion ratings from -50 to +50
+  line_task$response <- as.numeric(line_task$response)
+  line_task$response <- .5 - line_task$response
+  line_task$response <- -1 * line_task$response
+
+
