@@ -63,4 +63,8 @@ line_task <- subset(
   line_task$response <- .5 - line_task$response
   line_task$response <- -1 * line_task$response
 
-
+################################################################################
+# SUMMARY DATAFRAMES
+################################################################################
+detection_task_summary <- summary_dataframe(detection_task, FALSE)
+line_task_summary <- summary_dataframe(line_task, TRUE)
