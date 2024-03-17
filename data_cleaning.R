@@ -1,9 +1,6 @@
 wd <- "/Users/nickmurray/Desktop/Klein_Lab_Projects/gaze_ilm_analyses"
 
 library(tidyverse)
-library(gridExtra)
-library(afex)
-library(ez)
 
 # Read data
 
@@ -68,3 +65,5 @@ line_task <- subset(
 ################################################################################
 detection_task_summary <- summary_dataframe(detection_task, FALSE)
 line_task_summary <- summary_dataframe(line_task, TRUE)
+
+

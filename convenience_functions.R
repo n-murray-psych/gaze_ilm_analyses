@@ -75,6 +75,8 @@ conditional_median <- function(task_frame, line_task = FALSE, cue, validity = NA
 
 # Create dataframe with summary statistics (means; SD; medians) of reaction time and accuracy
   # for a respective task.summary_dataframe <- function(task_frame, line_task = FALSE) {
+ 
+summary_dataframe <- function(task_frame, line_task = FALSE) {
   
   cue_type <- unique(task_frame$cue_type)
   cue_validity <- unique(task_frame$cue_validity)
@@ -182,3 +184,5 @@ conditional_median <- function(task_frame, line_task = FALSE, cue, validity = NA
   return(df)
   
 }
+
+
