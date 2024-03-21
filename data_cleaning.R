@@ -1,4 +1,5 @@
 wd <- "/Users/nickmurray/Desktop/Klein_Lab_Projects/gaze_ilm_analyses"
+source("convenience_functions.r")
 
 library(tidyverse)
 
@@ -63,7 +64,23 @@ line_task <- subset(
 ################################################################################
 # SUMMARY DATAFRAMES
 ################################################################################
-detection_task_summary <- summary_dataframe(detection_task, FALSE)
-line_task_summary <- summary_dataframe(line_task, TRUE)
+detection_summary <- summary_dataframe(detection_task, FALSE)
+line_summary <- summary_dataframe(line_task, TRUE)
+line_summary$combined_cue_type_location <- paste0(
+  line_summary$cue_type, 
+  " ",
+  line_summary$cue_location
+)
+line_task_summary_left_motion <- subset(line_summary, 
+                                        task_requirement == "leftward real line motion rating"
+                                          )
+line_task_summary_right_motion <- subset(line_summary, 
+                                        task_requirement == "rightward real line motion rating"
+                                          )
+
+line_task_summary_illusory_motion <- subset(line_summary, 
+                                        task_requirement == "illusory line motion rating"
+                                          )
+
 
 
