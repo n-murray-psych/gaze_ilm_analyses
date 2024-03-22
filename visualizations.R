@@ -111,6 +111,11 @@ illusory_motion_graph <- ggplot(
 ggsave("ilm_plot.pdf", illusory_motion_graph, width = 5, height = 2, dpi = 300)
 ggsave("cuing_effect_rt_plot.pdf", detection_rt_graph, width = 5, height = 2, dpi = 300)
 
+grid.arrange(
+  detection_rt_graph, 
+  illusory_motion_graph,
+  nrow = 2
+) # Just save this with 5 (w) x 6 (h) dimensions 
 
 
 
