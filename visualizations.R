@@ -10,7 +10,9 @@ detection_rt_graph <- ggplot(data = detection_summary,
   geom_smooth(stat = "identity") + 
   xlab("Cue Validity") + 
   ylab("Mean Reaction Time (ms)") + 
-  labs(title = "Cuing Effect Reaction Times")
+  labs(title = "Cuing Effect") + 
+  theme_classic() + 
+  labs(colour = "Cue Type")
 
 detection_accuracy_graph <- ggplot(data = detection_summary,
        aes(x = cue_validity, y = mean_accuracy, group = cue_type, colour = cue_type)
@@ -19,7 +21,10 @@ detection_accuracy_graph <- ggplot(data = detection_summary,
   geom_smooth(stat = "identity") + 
   xlab("Cue Validity") + 
   ylab("Mean Accuracy (%)") + 
-  labs(title = "Cuing Effect Accuracies")
+  labs(title = "Cuing Effect \n Accuracies") + 
+  theme_classic()
+
+grid.arrange(detection_rt_graph, detection_accuracy_graph, nrow = 1)
 
 
 motion_graph <- ggplot(
@@ -100,4 +105,14 @@ illusory_motion_graph <- ggplot(
   xlab("Line Motion Rating (Left to Right") + 
   ylab("Cue Type") + 
   geom_vline(xintercept = 0, linetype = "dashed") + 
-  xlim(-.5, .5)
+  xlim(-.5, .5) + 
+  theme_classic()
+
+ggsave("ilm_plot.pdf", illusory_motion_graph, width = 5, height = 2, dpi = 300)
+ggsave("cuing_effect_rt_plot.pdf", detection_rt_graph, width = 5, height = 2, dpi = 300)
+
+
+
+
+
+
