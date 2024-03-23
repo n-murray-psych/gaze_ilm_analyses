@@ -62,8 +62,11 @@ line_task_anova <- aov_ez(
   id = "participant", 
   dv = "response", 
   data = line_task, 
-  within = c("cue_type", "task_requirement")
+  within = c("cue_location", "cue_type", "task_requirement")
 )
+
+line_task_ls_cue_location <- lsmeans(line_task_anova, c("cue_location"))
+update(pairs(line_task_ls_cue_location), by = NULL, adjust = "holm")
 
 line_task_ls_cue_type <- lsmeans(line_task_anova, c("cue_type"))
 update(pairs(line_task_ls_cue_type), by = NULL, adjust = "holm")
