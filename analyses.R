@@ -13,12 +13,6 @@ library(emmeans)
 # DETECTION TASK ANOVAS
 ################################################################################
 
-contrast_matrix <- matrix(c(
-  1, -1, 0, # valid vs invalid, neutral as reference
-  1, 0, -1, # valid vs neutral, invalid as reference
-  0, 1, -1 # invalid vs neutral, valid as reference
-), ncol = 3, byrow = TRUE)
-
 rt_anova_detection <- ezANOVA(data = detection_task,
                               dv = reaction_time,
                               wid = participant,
@@ -29,16 +23,6 @@ rt_anova_detection <- ezANOVA(data = detection_task,
 
 acc_anova_detection <- ezANOVA(data = detection_task,
                               dv = accuracy,
-                              wid = participant,
-                              within = .(cue_type, cue_validity),
-                              return_aov = TRUE,
-                              detailed = FALSE
-                              )
-
-emmeans(rt_anova_detection$aov, ~ cue_type * cue_validity)
-
-aov_ez(data = detection_task,
-                              dv = reaction_time,
                               wid = participant,
                               within = .(cue_type, cue_validity),
                               return_aov = TRUE,
@@ -59,4 +43,17 @@ update(pairs(rt_ls), by = NULL, adjust = "holm")
 
 rt_ls_interaction <- lsmeans(detection_rt_anova, c("cue_validity", "cue_type"))
 update(pairs(rt_ls_interaction), by = NULL, adjust = "holm")
+
+detection_accuracy_anova <- aov_ez(
+  id = "participant", 
+  dv = "accuracy", 
+  data = detection_task, 
+  within = c("cue_type", "cue_validity")
+)
+
+accuracy_ls <- lsmeans(detection_accuracy_anova, c("cue_validity"))
+update(pairs(accuracy_ls), by = NULL, adjust = "holm")
+
+accuracy_ls_interaction <- lsmeans(detection_accuracy_anova, c("cue_validity", "cue_type"))
+update(pairs(accuracy_ls_interaction), by = NULL, adjust = "holm")
 
