@@ -30,7 +30,7 @@ acc_anova_detection <- ezANOVA(data = detection_task,
                               )
 
 
-# Using afex's aov_ez so I can do planned contrasts with aov_ez
+# Detection ANOVAs and contrasts.
 detection_rt_anova <- aov_ez(
   id = "participant", 
   dv = "reaction_time", 
@@ -57,3 +57,19 @@ update(pairs(accuracy_ls), by = NULL, adjust = "holm")
 accuracy_ls_interaction <- lsmeans(detection_accuracy_anova, c("cue_validity", "cue_type"))
 update(pairs(accuracy_ls_interaction), by = NULL, adjust = "holm")
 
+# Line rating ANOVAs and contrasts.
+line_task_anova <- aov_ez(
+  id = "participant", 
+  dv = "response", 
+  data = line_task, 
+  within = c("cue_type", "task_requirement")
+)
+
+line_task_ls_cue_type <- lsmeans(line_task_anova, c("cue_type"))
+update(pairs(line_task_ls_cue_type), by = NULL, adjust = "holm")
+
+line_task_ls_line_type <- lsmeans(line_task_anova, c("task_requirement"))
+update(pairs(line_task_ls_line_type), by = NULL, adjust = "holm")
+
+line_task_ls_interaction <- lsmeans(line_task_anova, c("cue_type", "task_requirement"))
+update(pairs(line_task_ls_interaction), by = NULL, adjust = "holm")
