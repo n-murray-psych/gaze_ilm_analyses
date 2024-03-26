@@ -160,12 +160,11 @@ ilm_graph <- function(data, title) {
   
 }
 
-ilm_graph(illusory_motion, "Illusory Motion")
-ilm_graph(rightward_motion, "Rightward Real Line Motion")
-ilm_graph(leftward_motion, "Leftward Real Line Motion")
+static_line_plot <- ilm_graph(illusory_motion, "Illusory Motion")
+right_line_plot <- ilm_graph(rightward_motion, "Rightward Real Line Motion")
+left_line_plot <- ilm_graph(leftward_motion, "Leftward Real Line Motion")
 
-
-afex_plot(detection_rt_anova, "cue_validity", error = "within", 
+rt_anova_plot <- afex_plot(detection_rt_anova, "cue_validity", error = "within", 
           trace = "cue_type",
           data_plot = FALSE,
           legend_title = "Cue Type"
@@ -173,10 +172,23 @@ afex_plot(detection_rt_anova, "cue_validity", error = "within",
   theme_classic() + 
   labs(x = "Cue Validity", y = "Reaction Time (ms)")
   
-afex_plot(detection_accuracy_anova, "cue_validity", error = "within", 
+accuracy_anova_plot <- afex_plot(detection_accuracy_anova, "cue_validity", error = "within", 
           trace = "cue_type",
           data_plot = FALSE,
           legend_title = "Cue Type"
           ) + 
   theme_classic() + 
   labs(x = "Cue Validity", y = "Reaction Time (ms)")
+
+ggsave("rt_anova_plot.pdf", rt_anova_plot, width = 4, height = 4, dpi = 300)
+ggsave("accuracy_anova_plot.pdf", accuracy_anova_plot, width = 4, height = 4, dpi = 300)
+ggsave("static_line_plot.pdf", static_line_plot, width = 10, height = 4, dpi = 300)
+ggsave("right_line_plot.pdf", right_line_plot, width = 10, height = 4, dpi = 300)
+ggsave("left_line_plot.pdf", left_line_plot, width = 10, height = 4, dpi = 300)
+
+
+
+afex_plot(line_task_anova, c("cue_location", "cue_type", "task_requirement"), error = "within", return = "data")
+afex_plot(line_task_anova, c("cue_location", "task_requirement"), error = "within", return = "data")
+
+illusory_motion_no_split
