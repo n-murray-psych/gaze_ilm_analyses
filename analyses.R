@@ -12,7 +12,6 @@ library(emmeans)
 ################################################################################
 # DETECTION TASK ANOVAS
 ################################################################################
-
 rt_anova_detection <- ezANOVA(data = detection_task,
                               dv = reaction_time,
                               wid = participant,
@@ -64,7 +63,6 @@ line_task_anova <- aov_ez(
   data = line_task, 
   within = c("cue_location", "cue_type", "task_requirement")
 )
-
 line_task_ls_cue_location <- lsmeans(line_task_anova, c("cue_location"))
 update(pairs(line_task_ls_cue_location), by = NULL, adjust = "holm")
 
@@ -74,5 +72,14 @@ update(pairs(line_task_ls_cue_type), by = NULL, adjust = "holm")
 line_task_ls_line_type <- lsmeans(line_task_anova, c("task_requirement"))
 update(pairs(line_task_ls_line_type), by = NULL, adjust = "holm")
 
-line_task_ls_interaction <- lsmeans(line_task_anova, c("cue_type", "task_requirement"))
+line_task_ls_location_type_interaction <- lsmeans(line_task_anova, c("cue_location", "cue_type"))
+update(pairs(line_task_ls_location_type_interaction), by = NULL, adjust = "holm")
+
+line_task_ls_location_type_interaction <- lsmeans(line_task_anova, c("cue_location", "task_requirement"))
+update(pairs(line_task_ls_location_type_interaction), by = NULL, adjust = "holm")
+
+line_task_ls_interaction <- lsmeans(line_task_anova, c("cue_type", "task_requirement", "cue_location"))
 update(pairs(line_task_ls_interaction), by = NULL, adjust = "holm")
+
+# TESTING VISUALIZATIONS WITH AFEX
+afex_plot(line_task_anova, c("cue_location", "cue_type"), error = "within", return = "data")
