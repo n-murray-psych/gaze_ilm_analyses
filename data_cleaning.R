@@ -26,6 +26,40 @@ setwd(wd)
 ################################################################################
 # DATA CLEANING
 ################################################################################
+male_counter <- 0
+male_southpaw_counter <- 0
+male_ambi_counter <- 0
+female_counter <- 0
+female_southpaw_counter <- 0
+female_ambi_counter <- 0
+
+for (participant in unique(df$participant)) {
+  
+  if (unique(df[df$participant == participant, "gender"]) == "m") {
+    male_counter <- male_counter + 1
+  }
+    
+    if(unique(df[df$participant == participant, "handedness"]) == "l") {
+      male_southpaw_counter <- male_southpaw_counter + 1
+    }
+    
+    if(unique(df[df$participant == participant, "handedness"]) == "a") {
+      male_ambi_counter <- male_ambi_counter + 1
+    }
+    
+    if (unique(df[df$participant == participant, "gender"]) == "f") {
+    female_counter <- female_counter + 1
+    }
+    
+    if(unique(df[df$participant == participant, "handedness"]) == "l") {
+      female_southpaw_counter <- female_southpaw_counter + 1
+    }
+    
+    if(unique(df[df$participant == participant, "handedness"]) == "a") {
+      female_ambi_counter <- female_ambi_counter + 1
+    }
+}
+
 
 # Detection task
 
